@@ -5,7 +5,7 @@ import Color from './Color'
 function App() {
   const [ color, setColor ] = useState("");
   const [ error, setError ] = useState(false);//para prevenir cualquier fruta en el input
-  const [ colorsList, setColorList ] = useState([]);
+  const [ colorsList, setColorList ] = useState(new Values("#222").all(20));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ function App() {
             value={color}
             onChange={(e) => setColor(e.target.value)}
             style={{background:"whitesmoke"}}
-            placeholder="#000000"
+            placeholder="#222"
             className={error?"error":null}
           />
           <button className="btn" type="submit" onClick={handleSubmit}>Generate</button>
