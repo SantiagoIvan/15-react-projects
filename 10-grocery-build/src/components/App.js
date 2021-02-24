@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react'
 import GroceryList from './GroceryList'
 import Alert from './Alert'
 
+const getLocalStorage = () => {
+  let arr = localStorage.getItem("lista de groserias");
+  return arr && JSON.parse(arr)
+}
+
 function App() {
   const [grocery, setGrocery] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -36,12 +41,20 @@ function App() {
   }
 
   useEffect( () => {
+    setGroceryList(getLocalStorage())
+  }, []);
+
+  useEffect( () => {
     const timeout = setTimeout( () => showAlert() ,2000);
     return () => {
       clearTimeout(timeout)
     }
   }, [alert])
   
+  useEffect( () => {
+    localStorage.setItem("lista de groserias", JSON.stringify(groceryList));
+  }, [groceryList]);
+
   const editItem = (id) => {
     setIdEdited(id)
     setIsEditing(true);
