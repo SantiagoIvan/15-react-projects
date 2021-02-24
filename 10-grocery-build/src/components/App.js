@@ -17,6 +17,10 @@ function App() {
     }
   }
 
+  const showAlert = (show=false, type="", msg="") => {
+    setAlert({show,type,msg})
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if(isEditing){
@@ -27,11 +31,12 @@ function App() {
     }else{
       setGroceryList([...groceryList, {id:new Date().toLocaleString(), grocery}]);
     }
-    setAlert({type:"alert-success",msg:`${(isEditing)?"Edited!":"Added!"}`});
+    setGrocery("");
+    showAlert(true, "alert-success", `${(isEditing)?"Edited!":"Added!"}`);
   }
 
   useEffect( () => {
-    const timeout = setTimeout(() => {setAlert({show:false})},2000);
+    const timeout = setTimeout( () => showAlert() ,2000);
     return () => {
       clearTimeout(timeout)
     }
@@ -45,7 +50,7 @@ function App() {
   const deleteItem = (id) => {
     const arr = groceryList.filter( elem => elem.id !== id)
     setGroceryList(arr);
-    setAlert({type:"alert-danger",msg:`Deleted`});
+    showAlert(true, "alert-danger", `Deleted`);
   }
   return (
     <section className="section-center">
@@ -72,6 +77,7 @@ function App() {
         editItem={editItem}
         deleteItem={deleteItem}
         setGroceryList={setGroceryList}
+        showAlert={showAlert}
       />
 
     </section>

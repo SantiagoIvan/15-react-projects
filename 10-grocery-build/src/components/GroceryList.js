@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GroceryList = ({groceryList, editItem, deleteItem, setGroceryList}) => {
+const GroceryList = ({groceryList, editItem, deleteItem, setGroceryList, showAlert}) => {
     return (
         <div className="grocery-container">
         {groceryList.map( groc => {
@@ -13,7 +13,7 @@ const GroceryList = ({groceryList, editItem, deleteItem, setGroceryList}) => {
           )
         })}
         {(groceryList.length>0)?
-          <button type="button" className="clear-btn" onClick={() => setGroceryList([])}>Clear Items</button> :
+          <button type="button" className="clear-btn" onClick={() => {setGroceryList([]);showAlert(true,"alert-danger","List cleared")}}>Clear Items</button> :
           <></>
         }
       </div>
